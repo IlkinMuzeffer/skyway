@@ -16,8 +16,6 @@ export default async function OrderPage({ params, searchParams }) {
   const { type } = await searchParams;
 
   const order = await prisma.order.findUnique({ where: { id } });
-
-  // başqasının sifarişini görməsin
   if (!order || order.userId !== session.user.id) notFound();
 
   const destination = airports.find((a) => a.code === order.to);
@@ -67,7 +65,7 @@ export default async function OrderPage({ params, searchParams }) {
 
       <div className="grid gap-3">
         {cityHotels.length > 0 ? (
-          cityHotels.map((h) => <HotelCard key={h.id} hotel={h} cityName={cityName} />)
+          cityHotels.map((h) => <HotelCard key={h.id} hotel={h} cityName={cityName} orderId={order.id} />)
         ) : (
           <p className="text-gray-500">Bu filtr üzrə qalma yeri tapılmadı.</p>
         )}

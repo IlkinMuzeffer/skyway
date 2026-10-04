@@ -1,4 +1,6 @@
-export default function HotelCard({ hotel, cityName }) {
+import Link from "next/link";
+
+export default function HotelCard({ hotel, cityName, orderId }) {
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     `${hotel.name} ${cityName}`
   )}`;
@@ -14,10 +16,6 @@ export default function HotelCard({ hotel, cityName }) {
           {hotel.area} · {"★".repeat(hotel.stars)}
         </p>
         <p className="text-sm text-gray-500">Qiymətləndirmə: {hotel.rating} / 10</p>
-      </div>
-      <div className="text-right">
-        <p className="text-xl font-bold text-blue-600">{hotel.pricePerNight} $</p>
-        <p className="text-xs text-gray-500">gecəlik</p>
         <a
           href={mapUrl}
           target="_blank"
@@ -26,6 +24,16 @@ export default function HotelCard({ hotel, cityName }) {
         >
           Xəritədə bax
         </a>
+      </div>
+      <div className="text-right">
+        <p className="text-xl font-bold text-blue-600">{hotel.pricePerNight} $</p>
+        <p className="text-xs text-gray-500">gecəlik</p>
+        <Link
+          href={`/hotel-booking/${hotel.id}?orderId=${orderId || ""}`}
+          className="mt-2 inline-block bg-blue-600 text-white rounded-lg px-4 py-1.5 text-sm hover:bg-blue-700"
+        >
+          Rezerv et
+        </Link>
       </div>
     </div>
   );
