@@ -8,7 +8,7 @@ export default async function FlightsPage({ searchParams }) {
   const session = await auth();
   if (!session) redirect("/login");
 
-  const { from, to } = await searchParams;
+  const { from, to, date } = await searchParams;
 
   const results = flights.filter(
     (f) => (!from || f.from === from) && (!to || f.to === to)
@@ -24,7 +24,7 @@ export default async function FlightsPage({ searchParams }) {
 
       <div className="grid gap-4">
         {results.length > 0 ? (
-          results.map((f) => <FlightCard key={f.id} flight={f} />)
+          results.map((f) => <FlightCard key={f.id} flight={f} date={date} />)
         ) : (
           <p className="text-gray-500">Bu istiqamətdə reys tapılmadı.</p>
         )}

@@ -13,4 +13,23 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+  orders    Order[]
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  flightId      Int
+  from          String
+  to            String
+  airline       String
+  departure     String
+  arrival       String
+  date          String
+  price         Int
+  passengerName String
+  phone         String
+  status        String   @default("CONFIRMED")
+  createdAt     DateTime @default(now())
 }
