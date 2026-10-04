@@ -15,6 +15,7 @@ export default async function Header() {
 
           {session ? (
             <>
+              <Link href="/orders" className="hover:text-blue-600">Sifarişlərim</Link>
               <span className="text-gray-600">Salam, {session.user.name}</span>
               <form
                 action={async () => {
