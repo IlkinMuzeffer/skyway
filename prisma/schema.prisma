@@ -14,6 +14,7 @@ model User {
   password  String
   createdAt DateTime @default(now())
   orders    Order[]
+  hotelBookings HotelBooking[]
 }
 
 model Order {
@@ -32,4 +33,23 @@ model Order {
   phone         String
   status        String   @default("CONFIRMED")
   createdAt     DateTime @default(now())
+}
+
+model HotelBooking {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  orderId      String?
+  hotelId      Int
+  hotelName    String
+  city         String
+  type         String
+  checkIn      String
+  checkOut     String
+  nights       Int
+  pricePerNight Int
+  totalPrice   Int
+  guestName    String
+  status       String   @default("CONFIRMED")
+  createdAt    DateTime @default(now())
 }
